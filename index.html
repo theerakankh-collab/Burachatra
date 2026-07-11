@@ -1,1 +1,98 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ระบบบริหารจัดการผังและที่นั่งภารกิจ ส.1</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <header class="header-section">
+            <div class="title-area">
+                <h1>ระบบบุรฉัตร</h1
+                <p>จัดการเลือกผังภารกิจ ควบคุมรายชื่อ และจัดสรรแผนผังในพิธีตามลำดับอาวุโส</p>
+            </div>
+            <div class="action-buttons">
+                <button class="btn btn-excel-import" onclick="document.getElementById('csvInput').click()">📥 นำเข้า CSV/Excel</button>
+                <input type="file" id="csvInput" accept=".csv" style="display: none;">
+                <button class="btn btn-png" onclick="window.print()">PNG/Print</button>
+                <button class="btn btn-excel" onclick="alert('กำลังส่งออก Excel...')">Excel</button>
+            </div>
+        </header>
+
+        <section class="top-selection-section">
+            <div class="section-title">
+                <span>📋 รายการภารกิจ / พิธีการทั้งหมด</span>
+                <div class="selection-controls">
+                    <a href="#" id="selectAll">เลือกทั้งหมด</a>
+                    <a href="#" id="clearAll">ล้าง</a>
+                </div>
+            </div>
+            <div class="checkbox-grid">
+                <label class="checkbox-item"><input type="checkbox" checked> ต้อนรับหน้าพระอนุสาวรีย์</label>
+                <label class="checkbox-item"><input type="checkbox" checked> สักการะพระอนุสาวรีย์</label>
+                <label class="checkbox-item"><input type="checkbox"> ถ่ายภาพหน้าพระอนุสาวรีย์</label>
+                <label class="checkbox-item"><input type="checkbox"> ต้อนรับหน้า บก.ส.1</label>
+                <label class="checkbox-item"><input type="checkbox"> รับเคารพจากแถวทหารต้อนรับ</label>
+                <label class="checkbox-item"><input type="checkbox"> ห้องบุรฉัตร</label>
+                <label class="checkbox-item"><input type="checkbox"> ห้องประชุม</label>
+            </div>
+        </section>
+
+        <section class="bottom-grid-section">
+            <div class="section-title">
+                <span>🗂️ รายชื่อผังที่เลือกดำเนินการ (คลิก "แก้ไข" เพื่อตั้งค่าที่นั่งของผังนั้นๆ)</span>
+            </div>
+            <div class="selected-grid" id="selectedGrid">
+                </div>
+        </section>
+
+        <hr class="divider">
+
+        <section class="seat-management-section" id="seatManager" style="display: none;">
+            <div class="section-title">
+                <span id="currentEditingTitle">🛠️ กำลังตั้งค่าผัง: -</span>
+                <button class="btn btn-word" onclick="closeEditor()" style="padding: 4px 12px; font-size: 12px;">❌ ปิดส่วนแก้ไข</button>
+            </div>
+
+            <div class="grid-config-bar">
+                <label>แถว (Rows): <input type="number" id="inputRows" value="4" min="1" max="10"></label>
+                <label>คอลัมน์ (Cols): <input type="number" id="inputCols" value="9" min="1" max="15"></label>
+                <button class="btn btn-excel" onclick="generateSeatGrid()">ใช้งานขนาดนี้</button>
+            </div>
+
+            <div class="visual-seat-wrapper">
+                <div class="altar-row">
+                    <div class="altar-box">อาสนะสงฆ์</div>
+                    <div class="altar-box">โต๊ะหมู่บูชา</div>
+                    <div class="altar-box">องค์พระ</div>
+                </div>
+                <div class="visual-seat-grid" id="visualSeatGrid">
+                    </div>
+            </div>
+
+            <div class="table-container">
+                <h3 style="margin-bottom: 12px; font-size: 15px; color: #2d3748;">👥 บัญชีรายชื่อผู้เข้าร่วมพิธีและการจัดที่นั่ง (เรียงตามลำดับอาวุโส)</h3>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>ลำดับ</th>
+                            <th>ยศ - ชื่อ - สกุล</th>
+                            <th>ลำดับอาวุโส</th>
+                            <th>ตำแหน่งที่นั่งที่จอง</th>
+                            <th>สถานะ</th>
+                        </tr>
+                    </thead>
+                    <tbody id="memberTableBody">
+                        </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
 
